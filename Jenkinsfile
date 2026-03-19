@@ -30,7 +30,8 @@ pipeline {
 
 	   commit: $commit
 	   author: $author
-	   message: $message  """,
+	   message: $message  
+	   """,
 	   ok: 'deploy'
 	}
     }
