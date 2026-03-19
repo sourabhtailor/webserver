@@ -14,7 +14,7 @@ pipeline {
                def message = sh(script: "git log -1 --pretty=format:'%s'", retunrStout: true).trim() 
 	       echo "commit: $commit"
 	       echo "author: $author"
-	       echo "message: $(message)"
+	       echo "message: $message"
  	}
     }
 }
