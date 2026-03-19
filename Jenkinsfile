@@ -20,12 +20,14 @@ pipeline {
 }
      stage('list the files') {
         steps {
-       	   input message:  """
+       	  script {
+            def commit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
+            def author = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
+            def message = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
+ 
+	    input message:  """
 	   Deploy to Gov?
 
-           def commit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
-           def author = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
-           def message = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
 	   commit: $commit
 	   author: $author
 	   message: $message  """,
