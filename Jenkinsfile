@@ -20,7 +20,12 @@ pipeline {
 }
      stage('list the files') {
         steps {
-       	   sh ('ls -la')
+       	   input message:  """
+	   Deploy to Gov?
+
+	   commit: $commit
+	   author: $author
+	   message: $message		
 	}
     }
  }
