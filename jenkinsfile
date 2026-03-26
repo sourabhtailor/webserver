@@ -19,9 +19,9 @@ pipeline {
 	
 	Deploy to Gov Prod?
 	
-	commit: "$commit"
-	author: "$author"
-	message: "$message"
+	commit: $commit
+	author: $author
+	message: $message
         """,
             ok: 'deploy'
 
