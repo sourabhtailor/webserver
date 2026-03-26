@@ -9,7 +9,8 @@ pipeline {
    }
          stage('building the code') {
            steps {
-             script
+             script {
+
 		def commit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
 		def author = sh(script: "git lod -1 --pretty=format:'%an'", returnStdout: true).trim()
 		def message = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
@@ -32,4 +33,5 @@ pipeline {
      }
    }  
  }
+}
 }
