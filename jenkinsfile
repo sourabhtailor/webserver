@@ -9,8 +9,14 @@ pipeline {
    }
          stage('building the code') {
            steps {
+             input message: """
+	    Deploy to Gov Prod?
+
+            """,
+            ok: 'deploy'
+
              echo "now code is building"
-    }
-  }
-}
+     }
+   }  
+ }
 }
