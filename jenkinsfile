@@ -9,10 +9,20 @@ pipeline {
    }
          stage('building the code') {
            steps {
-             input message: """
-	    Deploy to Gov Prod?
+             script
 
-            """,
+		def commit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
+		def author = sh(script: "git lod -1 --pretty=format:'%an'", returnStdout: true).trim()
+		def message = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
+        
+	     input message: """
+	
+	Deploy to Gov Prod?
+	
+	commit: "$commit"
+	author: "$author"
+	message: "$message"
+        """,
             ok: 'deploy'
 
             sh '''
