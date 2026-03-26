@@ -1,10 +1,16 @@
 pipeline {
-      agent any
-      stages {
-         stage('build the code') {
+     agent any
+     stages {
+         stage('show the code') {
            steps {
-              echo "building the code"
-         }
+               sh 'ls -al'
+               sh 'cat jenkisnfile'
      }
+   }
+         stage('building the code') {
+           steps {
+             echo "now code is building"
+    }
   }
+}
 }
