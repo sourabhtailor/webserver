@@ -4,7 +4,7 @@ pipeline {
          stage('show the code') {
            steps {
                sh 'ls -al'
-               sh 'cat jenkinsfile'
+               sh 'cat jenkins.bak'
      }
    }
          stage('building the code') {
