@@ -15,7 +15,11 @@ pipeline {
             """,
             ok: 'deploy'
 
-             echo "now code is building"
+            sh '''
+
+              ls -al
+              cat sourabh.txt
+              '''
      }
    }  
  }

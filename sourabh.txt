@@ -1,0 +1,1 @@
+script works in jenkins how is sh will use to display the content of files and server
