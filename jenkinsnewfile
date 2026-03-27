@@ -1,0 +1,35 @@
+pipeline {
+      agent any
+      stages {
+          stage('list the code') {
+            steps {
+              sh 'ls -al'
+	}
+     }
+   	  stage('manual gate') {
+             steps {
+                script {
+
+		def commit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
+		def author = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
+		def message = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
+
+                input message: """
+
+                Deploy to Gov?
+
+	        commit: $commit
+		message: $message
+		author: $author
+		""",
+		ok: 'deploy'
+  
+		sh '''
+                   	ls -al
+			cat jenkinsfile
+		'''
+		}
+	}
+      }
+     } 
+}
