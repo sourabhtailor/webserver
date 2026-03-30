@@ -24,7 +24,7 @@ pipeline {
 	message: $message
         """,
             ok: 'deploy'
-            echo "approve is done by: ${userInput}"
+            echo "approve is done by: $userInput"
             sh '''
 
               ls -al
