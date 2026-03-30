@@ -1,35 +1,36 @@
 pipeline {
-      agent any
-      stages {
-          stage('list the code') {
-            steps {
-              sh 'ls -al'
-	}
+     agent any
+     stages {
+         stage('show the code') {
+           steps {
+               sh 'ls -al'
+               sh 'cat jenkins.bak'
      }
-   	  stage('manual gate') {
-             steps {
-                script {
+   }
+         stage('building the code') {
+           steps {
+             script {
 
-		def commit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
-		def author = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
-		def message = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
+                def commit = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
+                def author = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
+                def message = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
+                timeout (time: 5, unit: 'MINUTES') {
+                   def userInput = input(
+                    id: 'DeployApproval',
+                    message: """
 
-                input message: """
+        Deploy to Gov Prod?
 
-                Deploy to Gov?
-
-	        commit: $commit
-		message: $message
-		author: $author
-		""",
-		ok: 'deploy'
-  
-		sh '''
-                   	ls -al
-			cat jenkinsfile
-		'''
-		}
-	}
-      }
-     } 
+        commit: $commit
+        author: $author
+        message: $message
+        """,
+            ok: 'deploy'
+            )
+        echo "approve is done by: $userInput"
+       }
+     }
+   }
+ }
+}
 }
